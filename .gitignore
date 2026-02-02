@@ -20,6 +20,7 @@ __pycache__/
 *.env
 .venv/
 venv
+.venv
 
 
 # --- Database ---
@@ -30,6 +31,7 @@ sponsors.db
 
 # --- macOS System Files ---
 .DS_Store
+*.DS_Store
 .AppleDouble
 .LSOverride
 
