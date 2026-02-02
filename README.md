@@ -88,7 +88,10 @@ We would like to acknowledge the following individuals, organisations, and tools
 - Project Mentors: For guidance on system architecture and clean code practices.<br>
 
 ## 📝 License<br>
-Distributed under the MIT License. See LICENSE for more information.
+© 2026 SY223.<br>
+This project is for educational purposes only.<br>
+Commercial use, redistribution, or resale is prohibited without written permission to the [Home Office](https://www.gov.uk/)
+
 
 
 
