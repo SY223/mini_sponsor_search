@@ -1,0 +1,46 @@
+# --- Virtual Environments ---
+.venv/
+venv/
+env/
+ENV/
+bin/
+lib/
+include/
+
+# --- Python Cache ---
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+
+# --- Environment Variables (SENSITIVE) ---
+.env
+.flaskenv
+*.env
+.venv/
+venv
+
+
+# --- Database ---
+*.db
+*.sqlite
+*.sqlite3
+sponsors.db
+
+# --- macOS System Files ---
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# --- VS Code / IDEs ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Distribution / Logs ---
+dist/
+build/
+*.egg-info/
+*.log
