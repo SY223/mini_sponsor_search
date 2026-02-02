@@ -7,7 +7,16 @@ from datetime import datetime
 
 class SponsorServices():
     @staticmethod
-    def search_a_sponsor(name: str, city: str | None = None, page: int = 1, db: Session = Depends(get_db)):
+    def search_a_sponsor(
+        name: str | None = None, 
+        city: str | None = None,
+        route: str | None = None,
+        county: str | None = None,
+        rating: str | None = None,
+        page: int = 1,
+        sort: str | None = None,
+        db: Session = Depends(get_db)
+        ):
         page_size = 20
         offset = (page - 1) * page_size
         #Base Query
@@ -22,6 +31,16 @@ class SponsorServices():
             query = query.filter(
                 func.lower(sqlachemy_model.Sponsor.town_city)
                 .contains(city.lower().strip()))
+        if route:
+            query = query.filter(func.lower(sqlachemy_model.Sponsor.route) == route.lower().strip())
+        if county:
+            query = query.filter(func.lower(sqlachemy_model.Sponsor.county).contains(county.lower().strip()))
+        if rating:
+            query = query.filter(func.lower(sqlachemy_model.Sponsor.type_rating) == rating.lower().strip())
+        if sort == "asc":
+            query = query.order_by(sqlachemy_model.Sponsor.organisation_name.asc())
+        if sort == "desc":
+            query = query.order_by(sqlachemy_model.Sponsor.organisation_name.desc())
         #total count before pagination
         total_results = query.count() # type: ignore
         if not query:

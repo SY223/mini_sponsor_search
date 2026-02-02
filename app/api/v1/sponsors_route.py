@@ -13,12 +13,18 @@ sponsor_router = APIRouter(prefix="/sponsors", tags=["Sponsors"])
 
 @sponsor_router.get("/search")
 def search(
-    name: str | None = None,
+    name: str | None = None, 
     city: str | None = None,
-    page: int = 1, 
+    route: str | None = None,
+    county: str | None = None,
+    rating: str | None = None,
+    page: int = 1,
+    sort: str | None = None,
     db: Session = Depends(get_db)
     ):
-    asearch = SponsorServices.search_a_sponsor(name=name, city=city, page=page, db=db) # type: ignore
+    asearch = SponsorServices.search_a_sponsor(
+        name=name, city=city, route=route, county=county, rating=rating, page=page, sort=sort, db=db
+    ) # type: ignore
     return asearch
     
 
