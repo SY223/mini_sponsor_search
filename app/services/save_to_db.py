@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.models.sqlachemy_model import Sponsor
+from app.models.sqlachemy_model import Sponsor, RemovedSponsor
 from app.repositories.database_conn import SessionLocal
 from app.services import fetch_data_gov
 from datetime import datetime
@@ -20,25 +20,50 @@ class SaveToDB():
     @staticmethod
     def sync_data_to_db(db: Session, records: list):
         #Deduplicate incoming records
-        unique_records = {}
+        incoming_records = {}
         for r in records:
             r = SaveToDB.normalise_record(r)
             key = (r["organisation_name"], r["route"])
-            unique_records[key] = r
+            incoming_records[key] = r
         #Load existing sponsors
         existing_records = {
             (s.organisation_name, s.route): s for s in db.query(Sponsor).all()
         }
-        for key, record in unique_records.items():
-            if key in existing_records:
-                obj = existing_records[key]
-                obj.town_city = record["town_city"]
-                obj.county = record["county"]
-                obj.type_rating = record["type_rating"]
-                obj.last_synced = datetime.utcnow()
-            else:
-                new_sponsor = Sponsor(**record)
-                db.add(new_sponsor)
+        # 3. Compute diff 
+        existing_keys = set(existing_records.keys())
+        incoming_keys = set(incoming_records.keys())
+
+        removed_keys = existing_keys - incoming_keys
+        new_keys = incoming_keys - existing_keys
+        common_keys = existing_keys & incoming_keys
+
+        removed_count = len(removed_keys)
+        print(removed_count, "sponsor licence revoked")
+        #Store Removed Keys to database
+        for key in removed_keys:
+            old = existing_records[key]
+            # Check if already stored 
+            exists = db.query(RemovedSponsor).filter_by( organisation_name=old.organisation_name, route=old.route ).first()
+            if exists:
+                continue
+            removed_entry = RemovedSponsor(
+                organisation_name = old.organisation_name,
+                route = old.route,
+                removed_on = datetime.utcnow()
+            )
+            db.add(removed_entry)
+        
+        #Add new companies
+        for key in new_keys:
+            db.add(Sponsor(**incoming_records[key]))
+
+        for key in common_keys:
+            obj = existing_records[key]
+            data = incoming_records[key]
+            obj.town_city = data["town_city"]
+            obj.county = data["county"]
+            obj.type_rating = data["type_rating"]
+            obj.last_synced = datetime.utcnow()
         
         db.commit()
 

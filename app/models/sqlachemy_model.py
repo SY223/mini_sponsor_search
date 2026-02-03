@@ -17,7 +17,6 @@ class Sponsor(Base):
     type_rating = Column(Text)
     route = Column(Text)
     last_updated = Column(DateTime, default=datetime.utcnow)
-
     # Prevent duplicate rows for the same company on the same route
     __table_args__ = (
         UniqueConstraint('organisation_name', 'route', name='uq_org_route'),
@@ -26,3 +25,13 @@ class Sponsor(Base):
     def convert_lower(self, key, value): 
         return value.lower() if isinstance(value, str) else value
   
+class RemovedSponsor(Base): 
+    __tablename__ = "removed_sponsors"
+    id = Column(Integer, primary_key=True, index=True) 
+    organisation_name = Column(Text, nullable=False) 
+    route = Column(Text, nullable=False) 
+    removed_on = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = ( 
+        UniqueConstraint("organisation_name", "route", name="uq_removed_sponsor"), 
+    )

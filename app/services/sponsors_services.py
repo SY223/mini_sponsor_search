@@ -98,3 +98,28 @@ class SponsorServices():
             "total_pages": (total_results + page_size),
             "data": results
         }
+
+    @staticmethod
+    def get_revoked_sponsors(
+        db: Session = Depends(get_db),
+        page: int = 1
+        ):
+        page_size = 20
+        offset = (page - 1) * 20
+        revoked_licences = (
+            db.query(sqlachemy_model.RemovedSponsor).order_by(sqlachemy_model.RemovedSponsor.removed_on.desc())
+        )
+        total_results = revoked_licences.count() # type: ignore
+        if total_results == 0:
+            return {"message": "No sponsor licence revoked"}
+        results = (
+            revoked_licences.offset(offset).limit(page_size).all() # type: ignore
+        )
+        return {
+            "message": "Revoked sponsors retrieved successfully",
+            "page": page,
+            "page_size": page_size,
+            "total_results": total_results,
+            "total_pages": (total_results + page_size - 1) // page_size,
+            "data": results
+        }

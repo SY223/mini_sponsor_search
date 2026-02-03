@@ -42,4 +42,12 @@ def search_city_and_route(city: str, route: str, page: int = 1, db: Session = De
         city=city, route=route, page=page, db=db
     )
     return one_search
+
+@sponsor_router.get("/revoked-sponsors-list")
+def list_revoked_sponsors(
+    db: Session = Depends(get_db),
+    page: int = 1
+    ):
+    return SponsorServices.get_revoked_sponsors(db=db, page=page)
+
     
