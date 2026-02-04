@@ -49,10 +49,11 @@ class SaveToDB():
             removed_entry = RemovedSponsor(
                 organisation_name = old.organisation_name,
                 route = old.route,
+                town_city = old.town_city,
+                county = old.county,
                 removed_on = datetime.utcnow()
             )
             db.add(removed_entry)
-        
         #Add new companies
         for key in new_keys:
             db.add(Sponsor(**incoming_records[key]))

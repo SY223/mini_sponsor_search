@@ -29,7 +29,9 @@ class RemovedSponsor(Base):
     __tablename__ = "removed_sponsors"
     id = Column(Integer, primary_key=True, index=True) 
     organisation_name = Column(Text, nullable=False) 
-    route = Column(Text, nullable=False) 
+    route = Column(Text, nullable=False)
+    town_city = Column(Text, nullable=True)
+    county = Column(Text, nullable=True)
     removed_on = Column(DateTime, default=datetime.utcnow)
 
     __table_args__ = ( 
