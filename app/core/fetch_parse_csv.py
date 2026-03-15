@@ -25,5 +25,4 @@ def parse_sponsor_csv(csv_text: str):
             "type_rating": row["Type & Rating"].strip(),
             "route": row["Route"].strip()
         })
-
     return sponsors

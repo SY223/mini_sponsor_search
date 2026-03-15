@@ -13,10 +13,10 @@ sqlachemy_model.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Mini Sponsors Feed App")
 
-@app.on_event("startup") 
-def run_sync_once(): 
-    SaveToDB.onetime_sync()
-    print("Manual sync done")
+# @app.on_event("startup") 
+# def run_sync_once(): 
+#     SaveToDB.onetime_sync()
+#     print("Manual sync done")
 
 logging.basicConfig(
     level=logging.INFO,

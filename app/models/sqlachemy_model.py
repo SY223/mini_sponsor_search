@@ -26,7 +26,7 @@ class Sponsor(Base):
         return value.lower() if isinstance(value, str) else value
   
 class RemovedSponsor(Base): 
-    __tablename__ = "removed_sponsors"
+    __tablename__ = "revoked_sponsors"
     id = Column(Integer, primary_key=True, index=True) 
     organisation_name = Column(Text, nullable=False) 
     route = Column(Text, nullable=False)
@@ -35,5 +35,5 @@ class RemovedSponsor(Base):
     removed_on = Column(DateTime, default=datetime.utcnow)
 
     __table_args__ = ( 
-        UniqueConstraint("organisation_name", "route", name="uq_removed_sponsor"), 
+        UniqueConstraint("organisation_name", "route", name="uq_revoked_sponsor"), 
     )

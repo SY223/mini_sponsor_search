@@ -64,8 +64,7 @@ class SaveToDB():
             obj.town_city = data["town_city"]
             obj.county = data["county"]
             obj.type_rating = data["type_rating"]
-            obj.last_synced = datetime.utcnow()
-        
+            obj.last_synced = datetime.utcnow() 
         db.commit()
 
     @staticmethod

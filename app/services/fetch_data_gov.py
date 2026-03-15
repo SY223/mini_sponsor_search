@@ -20,13 +20,13 @@ def parse_sponsor_csv(csv_text: str):
     sponsors = []
 
     for row in reader:
-        row = {k.strip(): v.strip() for k, v in row.items()}
+        cleaned = { (k or "").strip(): (v or "").strip() for k, v in row.items() }
         sponsors.append({
-            "organisation_name": row["Organisation Name"].strip(),
-            "town_city": row.get("Town/City", "").strip(),
-            "county": row.get("County", "").strip(),
-            "type_rating": row.get("Type & Rating", "").strip(),
-            "route": row.get("Route", "").strip()
+            "organisation_name": cleaned.get("Organisation Name", ""),
+            "town_city": cleaned.get("Town/City", ""),
+            "county": cleaned.get("County", ""),
+            "type_rating": cleaned.get("Type & Rating", ""),
+            "route": cleaned.get("Route", "")
         })
     return sponsors
 
