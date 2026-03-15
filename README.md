@@ -75,7 +75,7 @@ uvicorn app.main:app --reload
 ## 👥 Contributors<br>
 | Name            | Role               | Responsibility                                                      |
 |-----------------|--------------------|---------------------------------------------------------------------|
-| Myself (SY223)  | Backend Engineer   | FastAPI implementation, SQLAlchemy models, and CSV sync services.   |
+| SY (SY223)      | Backend Engineer   | FastAPI implementation, SQLAlchemy models, and CSV sync services.   |
 | BigJoe (JAE5IVE)| Frontend Engineer  | UI design, search interface, and API consumption logic.             |
 
 ## 📜 Credits<br>
