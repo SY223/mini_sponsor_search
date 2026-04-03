@@ -3,7 +3,7 @@ import requests
 from io import StringIO
 
 SPONSOR_CSV_URL = ( 
-    "https://assets.publishing.service.gov.uk/media/697b386baacd0dc9777b4fa1/2026-01-29_-_Worker_and_Temporary_Worker.csv"
+    "https://assets.publishing.service.gov.uk/media/69ccddc7b6247041d3bf2200/2026-04-01_-_Worker_and_Temporary_Worker.csv"
 )
 
 def fetch_sponsor_csv(): 
@@ -12,7 +12,6 @@ def fetch_sponsor_csv():
     return response.text
 
 def parse_sponsor_csv(csv_text: str):
-    #Remove BOM if present
     csv_text = csv_text.replace("\ufeff", "")
     reader = csv.DictReader(StringIO(csv_text))
     #Normalise Headers

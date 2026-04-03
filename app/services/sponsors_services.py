@@ -2,7 +2,7 @@ from fastapi import Depends, status, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from app.models import sqlachemy_model
-from app.repositories.database_conn import get_db
+from app.db.database import get_db
 from datetime import datetime
 
 class SponsorServices():
