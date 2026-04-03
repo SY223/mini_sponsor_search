@@ -1,11 +1,9 @@
 from sqlalchemy import Column, Integer, String, DateTime, UniqueConstraint, Index, Text
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import validates
 from datetime import datetime
+from app.db.database import Base
 
 
-
-Base = declarative_base()
 
 class Sponsor(Base):
     __tablename__="sponsors"

@@ -1,6 +1,6 @@
 from fastapi import Depends, APIRouter
 from sqlalchemy.orm import Session
-from app.repositories.database_conn import get_db
+from app.db.database import get_db
 from app.models import sqlachemy_model
 from app.services.save_to_db import SaveToDB
 from app.services.sponsors_services import SponsorServices

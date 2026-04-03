@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from app.models.sqlachemy_model import Sponsor, RemovedSponsor
-from app.repositories.database_conn import SessionLocal
+from app.db.database import SessionLocal
 from app.services import fetch_data_gov
 from datetime import datetime
 
